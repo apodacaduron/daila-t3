@@ -1,4 +1,4 @@
-// We disable base styles to avoid overriding Mantine
+/* We disable base styles to avoid overriding Mantine */
 /* @tailwind base; */
 @tailwind components;
 @tailwind utilities;
