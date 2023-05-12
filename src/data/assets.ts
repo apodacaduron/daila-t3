@@ -10,3 +10,15 @@ export const DAILA_PREVIEW = {
   width: 1152,
   height: 480
 }
+export const DAILA_ICON_LOGO = {
+  src: '/assets/svg/daila-icon-logo.svg',
+  alt: 'Daila icon',
+  width: 48,
+  height: 48
+}
+export const GOOGLE_ICON_LOGO = {
+  src: '/assets/svg/google-icon-logo.svg',
+  alt: 'Google icon',
+  width: 16,
+  height: 16
+}
