@@ -43,7 +43,7 @@ export default function SignInPage() {
             />
             <Group w="100%" position="right">
               <Link href={SIGN_UP_PAGE.path} legacyBehavior passHref>
-                <Anchor>Has olvidado tu contraseña</Anchor>
+                <Anchor>¿Has olvidado tu contraseña?</Anchor>
               </Link>
             </Group>
             <Button fullWidth>Iniciar sesión</Button>
