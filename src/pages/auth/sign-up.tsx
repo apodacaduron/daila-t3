@@ -5,7 +5,6 @@ import {
   TextInput,
   Button,
   Container,
-  Group,
   Center,
   Anchor,
 } from "@mantine/core";
@@ -15,38 +14,41 @@ import Head from "next/head";
 import Image from "next/image";
 import Link from "next/link";
 import { DAILA_ICON_LOGO, GOOGLE_ICON_LOGO } from "~/data/assets";
-import { HOME_PAGE, SIGN_UP_PAGE } from "~/data/routes";
+import { HOME_PAGE, SIGN_IN_PAGE } from "~/data/routes";
 
-export default function SignInPage() {
+export default function SignUpPage() {
   return (
     <>
       <Head>
-        <title>Sign in - Daila</title>
+        <title>Sign up - Daila</title>
       </Head>
       <Center w="100%" h="100vh">
         <Container size={360}>
           <Stack align="center">
             <Image {...DAILA_ICON_LOGO} alt={DAILA_ICON_LOGO.alt} />
-            <Title order={2}>Ingrese a su cuenta</Title>
+            <Title order={2}>Crea tu cuenta</Title>
             <Text color="dimmed" align="center">
-              ¡Bienvenido de nuevo! Por favor, introduzca sus datos.
+              Comienza a convertir tus ideas en realidad.
             </Text>
             <TextInput
               w="100%"
               label="Correo electrónico"
               placeholder="Ingresa tu correo"
+              withAsterisk
             />
             <TextInput
               w="100%"
               label="Contraseña"
-              placeholder="Ingresa tu contraseña"
+              placeholder="Crea una contraseña"
+              withAsterisk
             />
-            <Group w="100%" position="right">
-              <Link href={SIGN_UP_PAGE.path} legacyBehavior passHref>
-                <Anchor>Has olvidado tu contraseña</Anchor>
-              </Link>
-            </Group>
-            <Button fullWidth>Iniciar sesión</Button>
+            <TextInput
+              w="100%"
+              label="Confirmar contraseña"
+              placeholder="Reingresa tu contraseña"
+              withAsterisk
+            />
+            <Button fullWidth>Crear cuenta</Button>
             <Button
               fullWidth
               variant="default"
@@ -55,12 +57,12 @@ export default function SignInPage() {
               }
               onClick={() => signIn("google")}
             >
-              Inicia sesión con Google
+              Regístrate con Google
             </Button>
             <Text color="dimmed">
-              ¿No tienes una cuenta? &nbsp;
-              <Link href={SIGN_UP_PAGE.path} legacyBehavior passHref>
-                <Anchor>Regístrate</Anchor>
+              ¿Ya tienes una cuenta? &nbsp;
+              <Link href={SIGN_IN_PAGE.path} legacyBehavior passHref>
+                <Anchor>Inicia sesión</Anchor>
               </Link>
             </Text>
           </Stack>
