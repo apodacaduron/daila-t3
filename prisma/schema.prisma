@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+    provider        = "prisma-client-js"
     previewFeatures = ["jsonProtocol"]
 }
 
@@ -38,6 +38,7 @@ model Account {
     user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
     @@unique([provider, providerAccountId])
+    @@map("accounts")
 }
 
 model Session {
@@ -46,6 +47,8 @@ model Session {
     userId       String
     expires      DateTime
     user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@map("sessions")
 }
 
 model User {
@@ -54,8 +57,13 @@ model User {
     email         String?   @unique
     emailVerified DateTime?
     image         String?
-    accounts      Account[]
-    sessions      Session[]
+
+    accounts         Account[]
+    sessions         Session[]
+    workspaces       Workspace[]
+    workspaceMembers WorkspaceMembers[]
+
+    @@map("users")
 }
 
 model VerificationToken {
@@ -64,4 +72,34 @@ model VerificationToken {
     expires    DateTime
 
     @@unique([identifier, token])
+    @@map("verification_tokens")
+}
+
+// Custom models
+model Workspace {
+    id   String @id @default(cuid())
+    name String
+
+    createdBy   User   @relation(fields: [createdById], references: [id])
+    createdById String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    workspaceMembers WorkspaceMembers[]
+
+    @@map("workspaces")
+}
+
+model WorkspaceMembers {
+    workspace   Workspace @relation(fields: [workspaceId], references: [id])
+    workspaceId String
+    member      User      @relation(fields: [memberId], references: [id])
+    memberId    String
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@id([workspaceId, memberId])
+    @@map("workspace_members")
 }
