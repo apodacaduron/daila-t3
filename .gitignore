@@ -40,3 +40,7 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
+
+# prisma
+/prisma/migrations/*.toml
+/prisma/migrations/**/*.sql

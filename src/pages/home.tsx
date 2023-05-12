@@ -1,13 +1,13 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import Head from 'next/head'
-import { MainSection, Nav } from '~/features/home-page'
-import styles from '~/styles/HomePage.module.scss'
+import Head from "next/head";
+import { MainSection, Nav } from "~/features/home-page";
+import styles from "~/styles/HomePage.module.scss";
 
 export default function HomePage() {
   return (
     <>
       <Head>
-        <title>Daila - Home</title>
+        <title>Home - Daila</title>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link
           rel="preconnect"
@@ -24,5 +24,5 @@ export default function HomePage() {
         <MainSection />
       </main>
     </>
-  )
+  );
 }
