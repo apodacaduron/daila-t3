@@ -17,11 +17,8 @@ import { api } from "~/utils/api";
 
 export default function CreateWorkspacePage() {
   const router = useRouter();
-  const utils = api.useContext();
   const createWorkspaceMutation = api.workspace.create.useMutation({
     async onSuccess(newWorkspace) {
-      console.log(newWorkspace);
-      await utils.member.getMember.invalidate();
       await router.push(DASHBOARD_PAGE(newWorkspace.id).path);
     },
   });

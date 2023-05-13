@@ -27,12 +27,9 @@ const useStyles = createStyles(() => ({
 export default function Nav() {
   const { classes } = useStyles();
   const session = useSession();
-  const activeWorkspaceQuery = api.member.getFirstActiveWorkspace.useQuery(
-    undefined,
-    {
-      enabled: Boolean(session.data),
-    }
-  );
+  const activeWorkspaceQuery = api.member.workspace.useQuery(undefined, {
+    enabled: Boolean(session.data),
+  });
 
   const unauthenticatedButtons = (
     <>

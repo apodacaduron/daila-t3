@@ -37,10 +37,10 @@ export default function WorkspaceSwitcher() {
   const { classes } = useStyles();
   const [selectedWorkspace, setSelectedWorkspace] = useState<Workspace>();
 
-  const workspaceQuery = api.workspace.getById.useQuery({
+  const workspaceQuery = api.workspace.byId.useQuery({
     workspaceId: router.query.workspaceId?.toString() ?? "",
   });
-  const workspacesQuery = api.member.getWorkspaces.useQuery(undefined, {
+  const workspacesQuery = api.member.workspaces.useQuery(undefined, {
     enabled: Boolean(workspaceQuery.data),
     onSuccess(nextWorkspaces) {
       if (selectedWorkspace) return;
