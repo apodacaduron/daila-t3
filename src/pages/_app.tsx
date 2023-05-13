@@ -8,6 +8,7 @@ import { MantineProvider } from "@mantine/core";
 import Head from "next/head";
 import { type ReactElement, type ReactNode } from "react";
 import { type NextPage } from "next";
+import { mantineTheme } from "~/data/mantineTheme";
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -36,8 +37,7 @@ const MyApp = ({
           withGlobalStyles
           withNormalizeCSS
           theme={{
-            /** Put your mantine theme override here */
-            colorScheme: "light",
+            ...mantineTheme,
           }}
         >
           {getLayout(<Component {...pageProps} />)}
