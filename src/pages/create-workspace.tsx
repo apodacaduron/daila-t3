@@ -17,8 +17,11 @@ import { api } from "~/utils/api";
 
 export default function CreateWorkspacePage() {
   const router = useRouter();
+  const utils = api.useContext();
   const createWorkspaceMutation = api.workspace.create.useMutation({
     async onSuccess(newWorkspace) {
+      console.log(newWorkspace);
+      await utils.member.getMember.invalidate();
       await router.push(DASHBOARD_PAGE(newWorkspace.id).path);
     },
   });
@@ -28,14 +31,12 @@ export default function CreateWorkspacePage() {
     },
     validate: {
       name: (value) =>
-        Boolean(value)
-          ? null
-          : "Por favor asigna un nombre a tu espacio de trabajo",
+        Boolean(value) ? null : "Asigna un nombre a tu espacio de trabajo",
     },
   });
 
-  async function createWorkspace(values: typeof form.values) {
-    await createWorkspaceMutation.mutateAsync(values);
+  function createWorkspace(values: typeof form.values) {
+    createWorkspaceMutation.mutate(values);
   }
 
   return (
