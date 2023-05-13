@@ -1,9 +1,15 @@
-import { Button, Container, Group, createStyles } from "@mantine/core";
+import { Button, Container, Group, Loader, createStyles } from "@mantine/core";
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
 import { DAILA_BLACK_LOGO } from "~/data/assets";
-import { SIGN_IN_PAGE, SIGN_UP_PAGE } from "~/data/routes";
+import {
+  CREATE_WORKSPACE_PAGE,
+  DASHBOARD_PAGE,
+  SIGN_IN_PAGE,
+  SIGN_UP_PAGE,
+} from "~/data/routes";
+import { api } from "~/utils/api";
 
 const useStyles = createStyles(() => ({
   nav: {
@@ -21,6 +27,12 @@ const useStyles = createStyles(() => ({
 export default function Nav() {
   const { classes } = useStyles();
   const session = useSession();
+  const activeWorkspaceQuery = api.member.getFirstActiveWorkspace.useQuery(
+    undefined,
+    {
+      enabled: Boolean(session.data),
+    }
+  );
 
   const unauthenticatedButtons = (
     <>
@@ -35,12 +47,28 @@ export default function Nav() {
 
   const authenticatedButtons = (
     <>
-      <Link href={SIGN_IN_PAGE.path}>
-        <Button variant="default">Dashboard</Button>
-      </Link>
-      <Button onClick={() => signOut()}>Sign out</Button>
+      {getDashboardButton()}
+      <Button onClick={() => signOut()}>Cerrar sesión</Button>
     </>
   );
+
+  function getDashboardButton() {
+    if (activeWorkspaceQuery.isFetching) {
+      return <Loader size="sm" />;
+    }
+    if (!activeWorkspaceQuery.data) {
+      return (
+        <Link href={CREATE_WORKSPACE_PAGE.path}>
+          <Button variant="default">Crear espacio de trabajo</Button>
+        </Link>
+      );
+    }
+    return (
+      <Link href={DASHBOARD_PAGE(activeWorkspaceQuery.data.id).path}>
+        <Button variant="default">Dashboard</Button>
+      </Link>
+    );
+  }
 
   return (
     <nav className={classes.nav}>
