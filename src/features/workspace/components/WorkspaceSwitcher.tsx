@@ -8,7 +8,7 @@ import {
   Button,
 } from "@mantine/core";
 import { type Workspace } from "@prisma/client";
-import { IconSelector } from "@tabler/icons-react";
+import { IconCheck, IconSelector } from "@tabler/icons-react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -23,6 +23,18 @@ const useStyles = createStyles((theme) => ({
     color: theme.colorScheme === "dark" ? theme.colors.dark[0] : theme.black,
     borderRadius: theme.radius.sm,
 
+    "&:hover": {
+      backgroundColor:
+        theme.colorScheme === "dark"
+          ? theme.colors.dark[8]
+          : theme.colors.gray[0],
+    },
+  },
+  menuActive: {
+    backgroundColor:
+      theme.colorScheme === "dark"
+        ? theme.colors.dark[8]
+        : theme.colors.gray[0],
     "&:hover": {
       backgroundColor:
         theme.colorScheme === "dark"
@@ -91,10 +103,18 @@ export default function WorkspaceSwitcher() {
             <Menu.Item
               component="a"
               onClick={() => selectWorkspace(workspace)}
+              className={
+                selectedWorkspace?.id === workspace.id ? classes.menuActive : ""
+              }
               icon={
                 <Avatar radius="xl" size="sm">
                   {workspace.name.charAt(0).toUpperCase()}
                 </Avatar>
+              }
+              rightSection={
+                selectedWorkspace?.id === workspace.id && (
+                  <IconCheck size="0.9rem" stroke={1.5} />
+                )
               }
             >
               {workspace.name}
