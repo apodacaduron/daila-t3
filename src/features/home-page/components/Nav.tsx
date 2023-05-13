@@ -44,12 +44,12 @@ export default function Nav() {
 
   const authenticatedButtons = (
     <>
-      {getDashboardButton()}
+      {getActionButton()}
       <Button onClick={() => signOut()}>Cerrar sesión</Button>
     </>
   );
 
-  function getDashboardButton() {
+  function getActionButton() {
     if (activeWorkspaceQuery.isFetching) {
       return <Loader size="sm" />;
     }
