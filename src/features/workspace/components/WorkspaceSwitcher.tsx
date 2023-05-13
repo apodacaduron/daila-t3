@@ -62,16 +62,16 @@ export default function WorkspaceSwitcher() {
       <Menu.Target>
         <UnstyledButton className={classes.workspaceSwitcher}>
           <Group>
-            <Avatar radius="xl" />
+            <Avatar radius="xl">
+              {selectedWorkspace?.name.charAt(0).toUpperCase()}
+            </Avatar>
 
             <div style={{ flex: 1 }}>
               <Text size="sm" weight={500}>
                 {selectedWorkspace?.name}
               </Text>
 
-              <Text color="dimmed" size="xs">
-                Member count
-              </Text>
+              <Text color="dimmed" size="xs"></Text>
             </div>
 
             <IconSelector size="0.9rem" stroke={1.5} />
